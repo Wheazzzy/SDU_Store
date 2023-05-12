@@ -7,11 +7,13 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 
+#Форма найти продукт
 class SearchForm(forms.Form):
     search = forms.CharField(required=False, min_length=3)
     search_in = forms.ChoiceField(required=False,choices=(("category", "Category"),("brand", "Brand")))
 
 
+#Авторизация
 class CustomAuthenticationForm(AuthenticationForm):
     error_messages = {
         'invalid_login': (
@@ -21,6 +23,7 @@ class CustomAuthenticationForm(AuthenticationForm):
         'inactive': ("This account is inactive."),
     }
 
+    #Подтверждение акка
     def confirm_login_allowed(self, user):
         if not user.is_active:
             raise forms.ValidationError(

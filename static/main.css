@@ -25,6 +25,13 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 
+/* Навигационное меню */
+.navbar {
+    background-color: #000;
+    padding: 1rem;
+}
+
+
 p, a, li {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16px;
@@ -93,12 +100,6 @@ p, a, li {
     color:antiquewhite;
     flex-direction: row;
 }
-/* Навигационное меню */
-.navbar {
-    background-color: #000;
-    padding: 1rem;
-}
-
 .nav-link, .navbar-brand {
     font-size: 20px;
     font-weight: bold;
