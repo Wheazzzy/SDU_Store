@@ -32,10 +32,12 @@ from .models import CartItem, Product
 from django.http import JsonResponse
 
 
+#Рендерит сам сайт
 def index(request):
     return render(request, "base.html")
 
 
+#Эта функция поиска он работает, при вводе названия продукта и он показывает его характеристики
 def sdu_search(request):
     search_text = request.GET.get("search", "")
     form = SearchForm(request.GET)
@@ -43,12 +45,15 @@ def sdu_search(request):
     return render(request, "search-result.html", {"form": form, "search_text": search_text, "products": products})
 
 
+#Это фукция отображает список продуктов ламода потому-что у меня была ламода раньше хаха
 def sdu_detail(request):
     products = Product.objects.filter(status='published')
     context = {'products': products}
     return render(request, 'lamoda_detail.html', context)
 
 
+#Эта функция отвечает за детали его там фото и характеристика каждого продукта и можно оставлять
+# отзывы если юзер за логинился а если нет то она не работает и также тут показывает на какие последние продукты заходил юзер
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
