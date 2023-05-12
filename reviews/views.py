@@ -95,7 +95,7 @@ def product_detail(request, pk):
         'form': form,
     })
 
-
+#способствует добавление продуктов в баскет
 @require_POST
 def cart_add(request, product_id):
     cart = Cart(request)
@@ -104,6 +104,7 @@ def cart_add(request, product_id):
     return redirect('cart_detail')
 
 
+#также способствует добавлеение предметов в баскет
 @login_required
 def add_to_cart(request, product_id):
     user = request.user
@@ -115,6 +116,7 @@ def add_to_cart(request, product_id):
     return JsonResponse({'success': True})
 
 
+#Удаляет продукты из корзины
 def remove_from_cart(request, product_id):
     try:
         item = CartItem.objects.get(user=request.user, product__id=product_id)
@@ -124,6 +126,7 @@ def remove_from_cart(request, product_id):
     return redirect('basket')
 
 
+#Сама корзина в ней хранятся продукты после добавление в разделе продукты
 @login_required
 def basket(request):
     cart = Cart.objects.filter(user=request.user).first()
@@ -138,6 +141,7 @@ def basket(request):
     return render(request, 'basket.html', context=context)
 
 
+#после просмотра продукта юзер нажимает на кнопку checkout и перебрасывает его на checkout
 @login_required
 def checkout(request):
     if request.method == 'POST':
@@ -164,6 +168,7 @@ def checkout(request):
     return render(request, 'checkout.html', {'form': form})
 
 
+#тут идет регистрация аккаунта
 class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, user, timestamp):
         return (
@@ -207,6 +212,7 @@ class RegisterView(SuccessMessageMixin, CreateView):
 User = get_user_model()
 
 
+#Активация аккаунта
 def activate_view(request, uidb64, token):
     try:
         uid = str(urlsafe_base64_decode(uidb64), 'utf-8')
@@ -227,6 +233,7 @@ def activate_view(request, uidb64, token):
         return render(request, 'activation.html')
 
 
+#Вхождение в аккаунт
 class LoginView(View):
     template_name = 'login.html'
     form_class = AuthenticationForm
@@ -260,12 +267,14 @@ class LoginView(View):
         return render(request, self.template_name, {'form': form})
 
 
+#Выход из аккаунта
 @login_required
 def logout_view(request):
     logout(request)
     return redirect('base')
 
 
+#Функция добавления продукта
 @method_decorator(user_passes_test(lambda u: u.is_staff), name='dispatch')
 class AddProductView(View):
     template_name = 'add_product.html'
@@ -304,6 +313,7 @@ class AddProductView(View):
         return render(request, self.template_name, context)
 
 
+#Удаление продукта
 @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
 class DeleteProductView(View):
     template_name = 'delete_product.html'
@@ -320,6 +330,7 @@ class DeleteProductView(View):
         return redirect('product_list')
 
 
+#Обновление продукта
 @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
 class UpdateProductView(View):
     template_name = 'update_product.html'
@@ -343,6 +354,7 @@ class UpdateProductView(View):
         return render(request, self.template_name, context)
 
 
+#Просмотр пользователя
 class UserProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
 
@@ -351,7 +363,7 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         context['user'] = self.request.user
         return context
 
-
+#Эти коды по логике должны работать так когда юзер заходит на edit-profile н не может себя делать staff
 def is_admin(user):
     return user.is_superuser
 
@@ -461,6 +473,7 @@ def pending_products(request):
         return render(request, 'error.html', {'message': 'You do not have permission to view this page.'})
 
 
+#Это API проекта
 class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
