@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="text-center">
+        <h2>Register</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}">Username:</label>
+                {{ form.username }}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}">Email:</label>
+                {{ form.email }}
+            </div>
+            <div class="mb-3 {% if form.password1.errors %}has-danger{% endif %}">
+                <label for="{{ form.password1.id_for_label }}">Password:</label>
+                {{ form.password1 }}
+                {% for error in form.password1.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+                <small class="form-text text-muted">{{ form.password1.help_text }}</small>
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+                {{ form.password2 }}
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <a href="{% url 'base' %}" class="btn btn-secondary">Cancel</a>
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            {{ field }}: {{ error }}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

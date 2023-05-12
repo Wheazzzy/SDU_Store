@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if request.user.is_superuser %}
+    <form method="post">
+      {% csrf_token %}
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in pending_products %}
+            <tr>
+              <td><input type="checkbox" name="products" value="{{ product.id }}"></td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <td>{{ product.price }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div>
+        <button type="submit" name="publish">Publish</button>
+        <button type="submit" name="reject">Reject</button>
+      </div>
+    </form>
+  {% else %}
+    <p>You do not have permission to view this page.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,307 @@
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css);
+
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    background-color: #f2f2f2;
+    margin: 0 auto;
+    padding-top: 110px;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+/* Шрифты */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: bold;
+}
+
+p, a, li {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+}
+
+ #about_us{
+    background-color: #000000;
+    margin-top: -8px;
+    flex-direction: row;
+}
+
+ .main_text h1{
+    font-family: 'Spartan', sans-serif;
+    font-size: 50px;
+    margin: 90px 0 0 100px;
+    z-index: 2;
+    color:antiquewhite;
+    display: inline-block;
+    border-right: 0.15em solid purple;
+    animation:blink 0.3s step-end infinite alternate, typing 3s steps(20);
+}
+
+@keyframes blink{
+    50%{
+        border-color:transparent;
+    }
+}
+
+.main_text p{
+    display: flex;
+    font-family: 'Spartan' , sans-serif;
+    font-size: 20px;
+    margin: 20px 0 0 100px;
+    color: antiquewhite;
+    flex-direction: row;
+
+}
+
+.main_text pre{
+    font-family: 'Spartan' , sans-serif;
+    font-weight: bolder;
+    font-size:50px;
+    margin: 15px 0 -0.5% 100px;
+    z-index: 4;
+    color: #a6a6de;
+    flex-direction: row;
+    animation: wheel-animation 2s
+    infinite;
+}
+
+@keyframes wheel-animation{
+    0%{
+        opacity: 1;
+        transform: translateY(-.9rem);
+    }
+    100%{
+        opacity: 0;
+        transform:translateY(.9rem);
+    }
+}
+
+#first_place_on_the_page{
+    font-size: 40px;
+    margin-top: -3%;
+    z-index: 1;
+    color:antiquewhite;
+    flex-direction: row;
+}
+/* Навигационное меню */
+.navbar {
+    background-color: #000;
+    padding: 1rem;
+}
+
+.nav-link, .navbar-brand {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #ffc107;
+}
+
+/* Заголовок */
+.text-center {
+    margin-top: 5rem;
+}
+
+.nav-link {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+h1 {
+    font-size: 60px;
+    color: #000;
+    margin-bottom: 1rem;
+}
+
+p {
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.navbar-success {
+  background-color: #020294 !important;
+}
+
+
+/* Футер */
+.page-footer {
+    background-color: #000;
+    color: #fff;
+    padding: 1rem;
+    margin-top: 5rem;
+}
+
+.page-footer a {
+    color: #fff;
+}
+
+.page-footer a:hover {
+    color: #ffc107;
+}
+
+.page-footer p {
+    margin-bottom: 0.5rem;
+}
+
+.navbar {
+    min-height: 110px;
+    font-size: 30px;
+}
+
+.navbar-brand {
+    font-size: 15px;
+}
+
+.navbar-brand > img {
+    height: 70px;
+}
+
+.navbar-dark {
+    background-color: #343a40;
+}
+
+.navbar-nav li a {
+    text-decoration: none;
+    color: white; /* задаем цвет текста ссылки */
+}
+
+.navbar-nav li a:hover {
+    color: yellow;
+}
+
+.text-center h1 {
+    font-size: 48px;
+    opacity: 0;
+    animation: slidein 2s forwards;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+
+}
+
+@keyframes slidein {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+}
+
+
+.welcome_user {
+  color: white;
+  margin-right: 50px;
+}
+
+/* HERE GONNA BE A CONTACTS */
+#contacts{
+    background-color:rgb(255, 255, 255);
+    flex-direction: row;
+}
+
+.city{
+    display:flex;
+    justify-content:space-around;
+    padding:20px 100px;
+    font-family: 'Podkova', serif;
+    font-size: 40px;
+    font-weight: bolder;
+    color:rgb(87, 87, 238);
+    -webkit-text-stroke: 1.5px #0045c0;
+    flex-direction: row;
+}
+
+.text_city{
+    text-align: center;
+    font-family:'Podkova', serif;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-top:1.5%;
+    margin-bottom: -4%;
+    color:rgb(255, 255, 255);
+    -webkit-text-stroke: 1.5px #0148c4;
+    flex-direction: row;
+}
+
+#slogan{
+    font-size: 50px;
+    flex-direction: row;
+}
+
+.main_cty{
+    margin-top:100px;
+    height:600px;
+    flex-direction: row;
+}
+
+#map{
+    margin-top: 55px;
+    position: relative;
+    margin-left: 14%;
+    text-align: center;
+    flex-direction: row;
+}
+
+#contacts pre{
+    font-size: 35px;
+    text-align: center;
+    color:rgb(214, 0, 0);
+    -webkit-text-stroke: 1.5px #87130f;
+    animation: wheel-animation 2s
+    infinite;
+}
+
+#Almaty, #logo_location, #Astana, #Aqtau, #Shymkent, #Aqtobe{
+    cursor: pointer;
+}
+
+@keyframes wheel-animation{
+    0%{
+        opacity: 1;
+        transform: translateY(-.9rem);
+    }
+    100%{
+        opacity: 0;
+        transform:translateY(.9rem);
+    }
+}
+
+.static_image{
+    width: 450px;
+    height: 300px;
+}

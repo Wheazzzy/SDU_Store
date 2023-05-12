@@ -1,0 +1,201 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Source+Sans+Pro&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="{% static 'main.css' %}?v=28">
+    <title>SDU-Store</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-success bg-success sticky-top">
+        <a class="navbar-brand" href="/">{% block brand %}<img src="{% static 'logo.png' %}" alt="/">{% endblock %}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {% if user.is_authenticated and user.is_staff %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-dark" href="{% url 'product_list' %}">Products</a>
+                            <a class="dropdown-item text-dark" href="{% url 'delete_product' %}">Delete Product</a>
+                            <a class="dropdown-item text-dark" href="{% url 'add_product' %}">Add Product</a>
+                            <a class="dropdown-item text-dark" href="{% url 'update_product' %}">Update Product</a>
+                        </div>
+                    </li>
+                    <div class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                    <li>
+                           <a class="nav-link" href="{% url 'sdu_search' %}">Search</a>
+                       </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'basket' %}">Basket</a>
+                    </li>
+                    <div class="welcome_user float-right" style="position: fixed; right: 0;">
+                    Welcome <a href="{% url 'user_profile' %}" style="color: white;">{{ user.username|title }}</a>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'product_list' %}">Products</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        <li>
+                           <a class="nav-link" href="{% url 'sdu_search' %}">Search</a>
+                       </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'basket' %}">Basket</a>
+                        </li>
+                        <div class="welcome_user float-right" style="position: fixed; right: 0;">
+                        Welcome <a href="{% url 'user_profile' %}" style="color: white; text-transform: capitalize">{{ user.username }}</a>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                       <li>
+                           <a class="nav-link" href="{% url 'sdu_search' %}">Search</a>
+                       </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'basket' %}">Basket</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                </div>
+            </ul>
+        </div>
+    </nav>
+</header>
+{% block content %}
+    <!------------- VIDEO CONTENT --------------->
+<div class="video">
+    <video class="video" width=100% controls >
+        <source src="https://drive.google.com/uc?export=preview&id=1qu1vZ01pUHCqvG98SWdBrZMuzj-po-i0" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+<!--------------------END HERE-------------------->
+    <div id="about_us">
+        <div class="container">
+            <div class="row waq">
+                <div class="col-md-6">
+                    <div class="main_text">
+                        <h1>We are <br>SDU Store-Online Market-Place</h1>
+                        <p>SDU-Store cooperation with
+                            Qazaq Republic, and this means like 'free'
+                            ancient Turkic, therefore out prints have
+                            dual meaning. By the way, we opened on a beautiful date in 02.12.2022</p>
+
+                        <p>SDU-Store takes care of its customers and offers a wide range of products at affordable prices,
+                            as well
+                            as fast delivery throughout Qazaqstan. On the website you can find everything you need to
+                            create a
+                            stylish image for any occasion - from casual clothes to evening dresses and high-heeled
+                            shoes.</p>
+                        <pre>Born to SDU-Store</pre>
+                        <pre id="first_place_on_the_page">Born to SDU-Store</pre>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="image_main">
+                        <img src="{% static 'photo_1.jpg' %}" alt="Ad 1" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------- END HEAR------------------>
+
+    <div id="contacts">
+    <div class="city">
+        <div id="logo_location"  onclick="window.location.reload()"><img src="https://avatars.mds.yandex.net/i?id=2a0000017a1219866d674f596d453d6d0703-5141058-images-thumbs&n=13" alt="" height="55px"></div>
+        <div id="Almaty" onclick="change(this)" onmouseover="big(this)" onmouseout="small(this)">-Almaty-</div>
+        <div id="Astana" onclick="change(this)" onmouseover="big(this)" onmouseout="small(this)">-Astana-</div>
+        <div id="Shymkent" onclick="change(this)" onmouseover="big(this)" onmouseout="small(this)">-Shymkent-</div>
+        <div id="Aqtau" onclick="change(this)" onmouseover="big(this)" onmouseout="small(this)">-Aqtau-</div>
+        <div id="Aqtobe" onclick="change(this)" onmouseover="big(this)" onmouseout="small(this)">-Aqtobe-</div>
+    </div>
+    <pre>10:00-18:00 || Monday - Saturday</pre>
+    <div class="text_city">
+        <p id="slogan">Welcome to our markets</p>
+        <p id="number"> </p>
+    </div>
+    <div class="main_city">
+        <img id="map" src="{% static 'all.png' %}" alt="" usemap="#work_map" style="width: 70%;">
+        <map name="work_map">
+            <area shape="circle" coords="320,280,80" alt="" href="https://go.2gis.com/bnmsog">
+            <area shape="circle" coords="90,420,120" alt="" href="https://go.2gis.com/dmvdrw">
+            <area shape="circle" coords="650,200,120" alt="" href="https://go.2gis.com/h63gkw">
+            <area shape="circle" coords="550,440,80" alt="" href="https://go.2gis.com/l6w31">
+            <area shape="circle" coords="800,420,120" alt="" href="https://2gis.kz/almaty/firm/70000001042393451/76.669559%2C43.208248?m=76.675235%2C43.210433%2F15.8">
+        </map>
+    </div>
+</div>
+<!--------------------END HERE-------------------->
+{% endblock %}
+<!-- Copyright -->
+<footer class="bg-dark text-white">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h5>About us</h5>
+        <p>Our store offers quality products at affordable prices. We guarantee fast delivery and excellent service.</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h5>Contact us</h5>
+        <ul class="list-unstyled">
+          <li>Phone Number: 8 (747) 189-56-16</li>
+          <li>Email: doktorswet@gmail.com</li>
+          <li>Address: city: Almaty, street:Al-Farabi Essentay Mol, home: 1</li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h5>Follow us</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white">Facebook</a></li>
+          <li><a href="#" class="text-white">Twitter</a></li>
+          <li><a href="#" class="text-white">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="bg-secondary py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 text-white">&copy; 2023 Store, All rights reserved: Done by Ossipov Alexander</div>
+        <div class="col-md-6 text-md-right">
+          <a href="#" class="text-white mx-3">Privacy policy</a>
+          <a href="#" class="text-white mx-3">Terms of use</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+ <script src="{% static 'script.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</body>
+</html>

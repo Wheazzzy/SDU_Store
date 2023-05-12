@@ -1,0 +1,8 @@
+{% block content %}
+    <h2>Confirm your registration</h2>
+    <p>Dear {{ user.username }},</p>
+    <p>Thank you for registering with us! Please follow the link below to confirm your registration:</p>
+    <p><a href="{{ confirmation_url }}">{{ confirmation_url }}</a></p>
+    <p>If you did not register, please ignore this message.</p>
+    <p>Once you have confirmed your registration, you can <a href="{% url 'login' %}">login here</a> to access your account.</p>
+{% endblock %}

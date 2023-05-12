@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ product.image_set.first.image.url }}" alt="{{ product.product_name }}" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+            <h3>{{ product.product_name }}</h3>
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Price <em>(In dollar $)</em>:</strong> {{ product.price }}</p>
+            <p><strong>Category:</strong> {{ product.category.category_name }}</p>
+            <p><strong>Brand:</strong> {{ product.brand.brand_name }}</p>
+            <p><strong>Color:</strong> {{ product.color }}</p>
+            <p><strong>Size:</strong> {{ product.size }}</p>
+            <p><strong>Weight:</strong> {{ product.weight }}</p>
+            <p><strong>Material:</strong> {{ product.material }}</p>
+            <p><strong>Rating:</strong> {{ product.rating }}</p>
+            <form action="{% url 'add-to-cart' product.pk %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.pk }}">
+                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+            </form>
+            <hr>
+      <h3 class="mt-4">Reviews</h3>
+      {% if product.reviews.all %}
+        {% for review in product.reviews.all %}
+          <div class="card my-2">
+            <div class="card-body">
+              <h5 class="card-title">{{ review.user }}</h5>
+              <p class="card-text">{{ review.text }}</p>
+              <p class="card-text"><small class="text-muted">{{ review.created_at }}</small></p>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No reviews yet.</p>
+      {% endif %}
+      {% if user.is_authenticated %}
+        <hr>
+        <h3 class="mt-4">Add Review</h3>
+        <form method="post" action="{% url 'product_detail' pk=product.pk %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="btn btn-primary btn-block" type="submit">Submit Review</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+    <div class="card my-4">
+        <h5 class="card-header">Last Viewed Items</h5>
+        <div class="card-body">
+            <ul class="list-unstyled mb-0">
+                {% for product in last_viewed_products %}
+                    <li class="media">
+                        <a href="{% url 'product_detail' product.pk %}">
+                            <img src="{{ product.image_set.first.image.url }}" alt="{{ product.product_name }}"
+                                 class="mr-3" width="50">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="mt-0 mb-1"><a
+                                    href="{% url 'product_detail' product.pk %}">{{ product.product_name }}</a></h6>
+                            <p class="mb-0"><strong>Price:</strong> {{ product.price }}</p>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>No items viewed yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

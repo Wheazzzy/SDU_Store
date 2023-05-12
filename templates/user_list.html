@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>List of users</h1>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name User</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>{% if user.is_superuser %}Admin{% else %}User{% endif %}</td>
+              <td>
+                <a href="{% url 'edit_user' user.id %}" class="btn btn-primary btn-sm mr-2">Edit</a>
+                <a href="{% url 'delete_user' user.id %}" class="btn btn-danger btn-sm">Delete</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <a href="{% url 'create_user' %}" class="btn btn-success">Add a user</a>
+  </div>
+{% endblock %}

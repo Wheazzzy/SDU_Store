@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row mt-4">
+        {% if products %}
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <a href="{% url 'product_detail' product.pk %}">
+                            <img class="static_image card-img-top" src="{{ product.image_set.first.image.url }}"
+                                 alt="{{ product.product_name }}">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.product_name }}</h5>
+                            <p class="card-text"><strong>Price <em>(In dollar $)</em>:</strong> {{ product.price }}</p>
+                            <form action="{% url 'add-to-cart' product.pk %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ product.pk }}">
+                                <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12">
+                <p>No products found.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $('.add-to-cart-btn').click(function () {
+            var productId = $(this).data('product-id');
+            $.ajax({
+                url: '/add-to-cart/',
+                data: {
+                    'product_id': productId
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        alert('Product added to cart!');
+                        location.href = '/basket/';
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

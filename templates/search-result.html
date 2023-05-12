@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+    {% if form.is_valid and search_text %}
+        Search Results for "{{ search_text }}"
+    {% else %}
+        Product Search
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="text-center">
+        <h2>Search for Products</h2>
+        <form>
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        {% if form.is_valid and search_text %}
+            <h3>Search Results for <em>{{ search_text }}</em></h3>
+            <ul class="list-group">
+                {% for product in products %}
+                    <li class="list-group-item">
+                        <span class="text-info">Product Name: </span>{{ product }}
+                        <br/>
+                        <span class="text-info">Description: </span>{{ product.description }}
+                        <br/>
+                        <span class="text-info">Price: </span>{{ product.price }}
+                        <br/>
+                        <span class="text-info">Category: </span>{{ product.category }}
+                        <br/>
+                        <span class="text-info">Brand: </span>{{ product.brand }}
+                        <br/>
+                        <span class="text-info">Color: </span>{{ product.color }}
+                        <br/>
+                        <span class="text-info">Size: </span>{{ product.size }}
+                        <br/>
+                        <span class="text-info">Weight: </span>{{ product.weight }}
+                        <br/>
+                        <span class="text-info">Material: </span>{{ product.material }}
+                        <br/>
+                        <span class="text-info">Rating: </span>{{ product.rating }}
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No results found.</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}
