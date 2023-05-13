@@ -1,6 +1,6 @@
 from audioop import reverse
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import authenticate, logout, get_user_model
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordResetForm, UserModel
+from django.contrib.auth import authenticate, logout, get_user_model, update_session_auth_hash
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
@@ -272,6 +272,50 @@ class LoginView(View):
 def logout_view(request):
     logout(request)
     return redirect('base')
+
+
+def forgot_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        user = get_object_or_404(User, email=email)
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        reset_password_link = request.build_absolute_uri('/') + f'reset-password/{uid}/{token}/'
+
+        send_mail(
+            'Password Recovery',
+            f'Link to password recovery: {reset_password_link}',
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False,
+        )
+
+        messages.success(request, 'A link to password recovery was sent to ваш email')
+        return redirect('login')
+    else:
+        return render(request, 'forgot_password.html')
+
+
+def reset_password(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        if request.method == 'POST':
+            password = request.POST.get('password')
+            user.set_password(password)
+            user.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password has been successfully changed. Now you can log in.')
+            return redirect('login')
+        else:
+            return render(request, 'reset_password.html')
+    else:
+        messages.error(request, 'The password recovery link is invalid.')
+        return redirect('login')
 
 
 #Функция добавления продукта

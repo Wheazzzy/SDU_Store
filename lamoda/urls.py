@@ -54,6 +54,8 @@ urlpatterns = [
     path('checkout/', reviews.views.checkout, name='checkout'),
     path('remove-from-cart/<int:product_id>/', reviews.views.remove_from_cart, name='remove_from_cart'),
     path('order-confirmation/', reviews.views.checkout, name='order_confirmation'),
+    path('forgot-password/', reviews.views.forgot_password, name='forgot_password'),
+    path('reset-password/<uidb64>/<token>/', reviews.views.reset_password, name='reset_password'),
 
 ]
 

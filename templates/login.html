@@ -1,27 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="text-center">
-        <h2>Login</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Login</button>
-            <a href="{% url 'base' %}" class="btn btn-secondary">Cancel</a>
-            {% if form.errors %}
-                <div class="alert alert-danger">
-                    {% for field, errors in form.errors.items %}
-                        {% for error in errors %}
-                            {% if forloop.first %}
-                                {{ error }}
-                            {% endif %}
-                            {% if field == 'password' and error == 'Minimum one upper case and one lower case and one number should contain.' %}
-                                <br>{{ error }}
-                            {% endif %}
-                        {% endfor %}
+<div class="text-center">
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a href="{% url 'base' %}" class="btn btn-secondary">Cancel</a>
+        <a href="{% url 'forgot_password' %}">Forgot Password?</a>
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        {% if forloop.first %}
+                            {{ error }}
+                        {% endif %}
+                        {% if field == 'password' and error == 'Minimum one upper case and one lower case and one number should contain.' %}
+                            <br>{{ error }}
+                        {% endif %}
                     {% endfor %}
-                </div>
-            {% endif %}
-        </form>
-    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </form>
+</div>
+
 {% endblock %}
