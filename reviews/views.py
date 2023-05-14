@@ -187,6 +187,11 @@ class RegisterView(SuccessMessageMixin, CreateView):
     success_message = 'Please check your email to activate your account'
 
     def form_valid(self, form):
+        email = form.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            form.add_error('email', 'This email is already registered')
+            return super().form_invalid(form)
+
         user = form.save(commit=False)
         user.is_active = False
         user.save()
@@ -207,6 +212,7 @@ class RegisterView(SuccessMessageMixin, CreateView):
         send_mail(subject, message, from_email, recipient_list, fail_silently=False)
 
         return super().form_valid(form)
+
 
 
 User = get_user_model()
