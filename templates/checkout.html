@@ -4,7 +4,7 @@
     <h1 class="text-center mb-5">Checkout</h1>
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form method="post" action="{% url 'checkout' %}">
+           <form method="post" action="{% url 'checkout' %}" id="payment-form">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="name">Full Name</label>
@@ -29,6 +29,32 @@
                         <option value="credit_card">Master Card</option>
                         <option value="paypal">PayPal</option>
                     </select>
+                </div>
+                <div id="credit-card-fields">
+                    <div class="form-group">
+                        <label for="credit-card-number">Credit Card Number</label>
+                        <input type="text" class="form-control" id="credit-card-number" name="credit_card_number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="credit-card-name">Cardholder Name</label>
+                        <input type="text" class="form-control" id="credit-card-name" name="credit_card_name" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="credit-card-expiry">Expiry Date</label>
+                            <input type="text" class="form-control" id="credit-card-expiry" name="credit_card_expiry" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="credit-card-cvv">CVV</label>
+                            <input type="text" class="form-control" id="credit-card-cvv" name="credit_card_cvv" required>
+                        </div>
+                    </div>
+                </div>
+                <div id="paypal-fields">
+                    <div class="form-group">
+                        <label for="paypal-email">PayPal Email</label>
+                        <input type="email" class="form-control" id="paypal-email" name="paypal_email" required>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block mt-5">Place Order</button>
             </form>
